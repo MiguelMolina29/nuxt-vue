@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <h1>Nosotros</h1>
+  <div>
+    <h1>Navbar Nosotors</h1>
+    <nuxt/>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'default'
 }
 </script>
 

@@ -1,17 +1,38 @@
 <template>
-  <div class="container">
-    <ul>
-      <li>Articulo 1</li>
-      <li>Articulo 2</li>
-      <li>Articulo 3</li>
-      <li>Articulo 4</li>
-    </ul>
+  <div class="container mt-2">
+    <div class="card my-2" v-for="(item, index) in articulos" :key="index">
+      <div class="card-body">
+        <nuxt-link :to="`blog/${item.id}`">
+          <h1> {{item.title}} </h1>
+        </nuxt-link>
+        <p>
+          {{item.body}}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
 
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      articulos: []
+    }
+  },
+  async created() {
+    try {
+      const res = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+      console.log(res.data)
+      this.articulos = res.data
+    } catch (error) {
+      console.log(error)
+    }
+
+  },
 }
 </script>
 
