@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <h2>vuex</h2>
+    <form
+      @submit.prevent="agregarTarea(tarea)"
+    >
+      <input type="text" class="form-control mb-2" v-model="tarea">
+      <b-button type="submit">Agregar</b-button>
+    </form>
     <ul>
       <li v-for="(item, index) in tareas" :key="index">
         {{item.id}} - {{item.nombre}}
-        <b-button class="btn-sm btn-warning">Editar</b-button>
-        <b-button class="btn-sm btn-danger">Eliminar</b-button>
+        <b-button class="btn-sm btn-warning" :to="`/vuex/${item.id}`">Editar</b-button>
+        <b-button class="btn-sm btn-danger" @click="eliminarTarea(item)">Eliminar</b-button>
         <hr>
       </li>
     </ul>
@@ -15,7 +21,7 @@
 <script>
 
 import { db } from '../../plugins/firebase';
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
 
@@ -34,6 +40,14 @@ export default {
   // }
   computed: {
     ...mapState(['tareas'])
+  },
+  methods: {
+    ...mapActions(['agregarTarea', 'eliminarTarea'])
+  },
+  data() {
+    return {
+      tarea: ''
+    }
   },
 
 }
